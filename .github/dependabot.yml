@@ -1,0 +1,67 @@
+version: 2
+
+updates:
+
+  # Gradle dependencies
+  - package-ecosystem: gradle
+    directory: /
+    schedule:
+      interval: daily
+      time: "15:00"
+
+    open-pull-requests-limit: 5
+    
+    rebase-strategy: auto
+    target-branch: main
+    versioning-strategy: increase
+
+    labels:
+      - dependencies
+      - gradle
+
+    reviewers:
+      - aobretin-salt
+
+    assignees:
+      - aobretin-salt
+
+    commit-message:
+      prefix: deps
+
+    ignore:
+      - dependency-name: org.projectlombok:lombok
+
+    groups:
+
+      spring:
+        patterns:
+          - org.springframework*
+
+      testing:
+        patterns:
+          - org.junit*
+          - org.mockito*
+          - org.assertj*
+
+      apache:
+        patterns:
+          - org.apache.*
+
+      testcontainers:
+        patterns:
+          - org.testcontainers*
+
+  # GitHub Actions
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+
+    labels:
+      - github-actions
+
+  # Docker
+  - package-ecosystem: docker
+    directory: /
+    schedule:
+      interval: weekly
